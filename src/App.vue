@@ -6,6 +6,33 @@
   <router-view />
 </template>
 
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "App",
+  //   data() {
+  //     return {
+  //       connection: null,
+  //     };
+  //   },
+  //   setup(props) {
+
+  //     console.log(props);
+  //     this.connection = new WebSocket("wss://echo.websocket.org");
+
+  //     this.connection.onmessage = function (event) {
+  //       console.log(event);
+  //     };
+
+  //     this.connection.onopen = function (event) {
+  //       console.log(event);
+  //       console.log("Successfully connected to the echo websocket server...");
+  //     };
+  //   },
+});
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
