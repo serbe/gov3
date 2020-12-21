@@ -16,7 +16,7 @@ export interface Practice {
   topic?: string;
   date_of_practice?: string;
   note?: string;
-};
+}
 
 // export const PracticeEmpty: Practice = {
 //   id: 0,
@@ -32,7 +32,7 @@ export interface PracticeList {
   topic?: string;
   date_of_practice?: string;
   date_str?: string;
-};
+}
 
 export interface PracticeShort {
   id: number;
@@ -41,7 +41,7 @@ export interface PracticeShort {
   kind_id: number;
   kind_short_name: string;
   date_of_practice: string;
-};
+}
 
 // export const PracticeListForm = (properties: PracticeValues): JSX.Element => {
 //   const history = useHistory();

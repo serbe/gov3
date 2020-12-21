@@ -8,7 +8,7 @@ export interface Rank {
   id: number;
   name?: string;
   note?: string;
-};
+}
 
 // export const RankEmpty: Rank = {
 //   id: 0,
@@ -18,7 +18,7 @@ export interface RankList {
   id: number;
   name?: string;
   note?: string;
-};
+}
 
 // export const RankIDSelect = (properties: SelectValues): JSX.Element => (
 //   <Select

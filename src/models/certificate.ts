@@ -11,7 +11,7 @@ export interface Certificate {
   company_id?: number;
   cert_date?: string;
   note?: string;
-};
+}
 
 // export const CertificateEmpty: Certificate = {
 //   id: 0,
@@ -26,7 +26,7 @@ export interface CertificateList {
   company_name?: string;
   cert_date?: string;
   note?: string;
-};
+}
 
 // export const CertificateNumberInput = (properties: StringInputProperties): JSX.Element => (
 //   <FormField

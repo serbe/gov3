@@ -9,7 +9,7 @@ export interface Kind {
   name?: string;
   short_name?: string;
   note?: string;
-};
+}
 
 // export const KindEmpty: Kind = {
 //   id: 0,
@@ -20,7 +20,7 @@ export interface KindList {
   name?: string;
   short_name?: string;
   note?: string;
-};
+}
 
 // export const KindNameInput = (properties: StringInputProperties): JSX.Element => (
 //   <FormField

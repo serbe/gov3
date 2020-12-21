@@ -10,7 +10,7 @@ export interface Education {
   end_date?: string;
   post_id?: number;
   note?: string;
-};
+}
 
 // export const EducationEmpty: Education = {
 //   id: 0,
@@ -27,14 +27,14 @@ export interface EducationList {
   post_id?: number;
   post_name?: string;
   note?: string;
-};
+}
 
 export interface EducationShort {
   id: number;
   contact_id: number;
   contact_name: string;
   start_date: string;
-};
+}
 
 // export const EducationNameSelect = (properties: SelectValues): JSX.Element => (
 //   <Select

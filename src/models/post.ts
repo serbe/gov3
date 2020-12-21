@@ -9,7 +9,7 @@ export interface Post {
   name?: string;
   go?: boolean;
   note?: string;
-};
+}
 
 // export const PostEmpty: Post = {
 //   id: 0,
@@ -20,7 +20,7 @@ export interface PostList {
   name?: string;
   go?: boolean;
   note?: string;
-};
+}
 
 // export const PostIDSelect = (properties: SelectValues): JSX.Element => (
 //   <Select

@@ -9,7 +9,7 @@ export interface SirenType {
   name?: string;
   radius?: number;
   note?: string;
-};
+}
 
 // export const SirenTypeEmpty: SirenType = {
 //   id: 0,
@@ -20,7 +20,7 @@ export interface SirenTypeList {
   name?: string;
   radius?: number;
   note?: string;
-};
+}
 
 // export const SirenTypeIDSelect = (properties: SelectValues): JSX.Element => (
 //   <Select

@@ -18,7 +18,7 @@ export interface Siren {
   stage?: number;
   own?: string;
   note?: string;
-};
+}
 
 // export const SirenEmpty: Siren = {
 //   id: 0,
@@ -30,7 +30,7 @@ export interface SirenList {
   address?: string;
   contact_name?: string;
   phones?: number[];
-};
+}
 
 // export const SirenNumberIDInput = (properties: NumberInputProperties): JSX.Element => (
 //   <FormField

@@ -8,7 +8,7 @@ export interface Department {
   id: number;
   name?: string;
   note?: string;
-};
+}
 
 // export const DepartmentEmpty: Department = {
 //   id: 0,
@@ -18,7 +18,7 @@ export interface DepartmentList {
   id: number;
   name?: string;
   note?: string;
-};
+}
 
 // export const DepartmentIDSelect = (properties: SelectValues): JSX.Element => (
 //   <Select

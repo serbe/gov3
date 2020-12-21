@@ -8,7 +8,7 @@ export interface Scope {
   id: number;
   name?: string;
   note?: string;
-};
+}
 
 // export const ScopeEmpty: Scope = {
 //   id: 0,
@@ -18,7 +18,7 @@ export interface ScopeList {
   id: number;
   name?: string;
   note?: string;
-};
+}
 
 // export const ScopeIDSelect = (properties: SelectValues): JSX.Element => (
 //   <Select

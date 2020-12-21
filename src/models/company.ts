@@ -1,6 +1,6 @@
 // import React, { ChangeEvent } from 'react';
-import { ContactShort } from './contact';
-import { PracticeList } from './practice';
+import { ContactShort } from "./contact";
+import { PracticeList } from "./practice";
 
 // import { FormField } from '../components/formfield';
 // import { StringInputProperties } from '../components/input';
@@ -17,7 +17,7 @@ export interface Company {
   faxes?: number[];
   practices?: PracticeList[];
   contacts?: ContactShort[];
-};
+}
 
 // export const CompanyEmpty: Company = {
 //   id: 0,
@@ -32,7 +32,7 @@ export interface CompanyList {
   phones?: number[];
   faxes?: number[];
   practices?: string[];
-};
+}
 
 // export const CompanyIDSelect = (properties: SelectValues): JSX.Element => (
 //   <Select

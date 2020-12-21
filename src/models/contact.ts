@@ -28,7 +28,7 @@ export interface Contact {
   phones?: number[];
   faxes?: number[];
   educations?: string[];
-};
+}
 
 // export const ContactEmpty: Contact = {
 //   id: 0,
@@ -42,7 +42,7 @@ export interface ContactList {
   post_name?: string;
   phones?: number[];
   faxes?: number[];
-};
+}
 
 export interface ContactShort {
   id: number;
@@ -50,7 +50,7 @@ export interface ContactShort {
   department_name?: string;
   post_name?: string;
   post_go_name?: string;
-};
+}
 
 // export const ContactNameInput = (properties: StringInputProperties): JSX.Element => (
 //   <FormField
