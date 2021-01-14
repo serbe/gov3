@@ -7,7 +7,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, inject } from "vue";
+import { listen } from 'ws-plus/vue';
 
 export default defineComponent({
   name: "App",
@@ -30,6 +31,18 @@ export default defineComponent({
   //       console.log("Successfully connected to the echo websocket server...");
   //     };
   //   },
+    setup() {
+        function receive({ ticket }) {
+            console.info(`Ticket received: ${ticket}`)
+        }
+
+        listen({
+            'ticket/receive': receive
+        })
+
+        const ws = inject('$ws')
+        ws.send('ticket/request', { data: ... })
+    }
 });
 </script>
 
