@@ -20,9 +20,9 @@ export interface Siren {
   note?: string;
 }
 
-// export const SirenEmpty: Siren = {
-//   id: 0,
-// };
+export const SirenEmpty: Siren = {
+  id: 0,
+};
 
 export interface SirenList {
   id: number;

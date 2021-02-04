@@ -1,70 +1,33 @@
-<template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
-</template>
-
 <script lang="ts">
-import { defineComponent, inject } from "vue";
-import { listen } from 'ws-plus/vue';
+import { defineComponent } from "vue";
+import TaskList from "./components/TaskList.vue";
 
 export default defineComponent({
-  name: "App",
-  //   data() {
-  //     return {
-  //       connection: null,
-  //     };
-  //   },
-  //   setup(props) {
-
-  //     console.log(props);
-  //     this.connection = new WebSocket("wss://echo.websocket.org");
-
-  //     this.connection.onmessage = function (event) {
-  //       console.log(event);
-  //     };
-
-  //     this.connection.onopen = function (event) {
-  //       console.log(event);
-  //       console.log("Successfully connected to the echo websocket server...");
-  //     };
-  //   },
-    setup() {
-        function receive({ ticket }) {
-            console.info(`Ticket received: ${ticket}`)
-        }
-
-        listen({
-            'ticket/receive': receive
-        })
-
-        const ws = inject('$ws')
-        ws.send('ticket/request', { data: ... })
-    }
+  components: { TaskList },
+  setup() {
+    return {};
+  },
 });
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<template>
+  <div class="container mx-auto mt-4">
+    <h1 class="is-size-3 has-text-centered p-2 has-text-weight-bold">
+      Vue 3 Task Management App with Typescript and Vuex 4
+    </h1>
 
-#nav {
-  padding: 30px;
+    <div v-if="loading">
+      <h3 class="has-text-centered mt-4">Loading...</h3>
+    </div>
+    <div v-else>
+      <p class="has-text-centered mt-2">
+        {{ completedCount }} of {{ totalCount }} completed.
+      </p>
+      <TaskList />
+    </div>
+  </div>
+</template>
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+<style>
+@import "~bulma/css/bulma.css";
 </style>

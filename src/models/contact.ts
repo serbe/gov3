@@ -30,9 +30,9 @@ export interface Contact {
   educations?: string[];
 }
 
-// export const ContactEmpty: Contact = {
-//   id: 0,
-// };
+export const ContactEmpty: Contact = {
+  id: 0,
+};
 
 export interface ContactList {
   id: number;

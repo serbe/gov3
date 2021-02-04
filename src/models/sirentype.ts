@@ -11,9 +11,9 @@ export interface SirenType {
   note?: string;
 }
 
-// export const SirenTypeEmpty: SirenType = {
-//   id: 0,
-// };
+export const SirenTypeEmpty: SirenType = {
+  id: 0,
+};
 
 export interface SirenTypeList {
   id: number;

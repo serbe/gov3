@@ -10,9 +10,9 @@ export interface Department {
   note?: string;
 }
 
-// export const DepartmentEmpty: Department = {
-//   id: 0,
-// };
+export const DepartmentEmpty: Department = {
+  id: 0,
+};
 
 export interface DepartmentList {
   id: number;

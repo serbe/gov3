@@ -12,9 +12,9 @@ export interface Education {
   note?: string;
 }
 
-// export const EducationEmpty: Education = {
-//   id: 0,
-// };
+export const EducationEmpty: Education = {
+  id: 0,
+};
 
 export interface EducationList {
   id: number;

@@ -13,9 +13,9 @@ export interface Certificate {
   note?: string;
 }
 
-// export const CertificateEmpty: Certificate = {
-//   id: 0,
-// };
+export const CertificateEmpty: Certificate = {
+  id: 0,
+};
 
 export interface CertificateList {
   id: number;

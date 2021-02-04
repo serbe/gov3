@@ -10,9 +10,9 @@ export interface Scope {
   note?: string;
 }
 
-// export const ScopeEmpty: Scope = {
-//   id: 0,
-// };
+export const ScopeEmpty: Scope = {
+  id: 0,
+};
 
 export interface ScopeList {
   id: number;

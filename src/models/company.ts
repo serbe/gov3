@@ -19,9 +19,9 @@ export interface Company {
   contacts?: ContactShort[];
 }
 
-// export const CompanyEmpty: Company = {
-//   id: 0,
-// };
+export const CompanyEmpty: Company = {
+  id: 0,
+};
 
 export interface CompanyList {
   id: number;

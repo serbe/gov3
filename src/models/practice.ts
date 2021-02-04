@@ -18,9 +18,9 @@ export interface Practice {
   note?: string;
 }
 
-// export const PracticeEmpty: Practice = {
-//   id: 0,
-// };
+export const PracticeEmpty: Practice = {
+  id: 0,
+};
 
 export interface PracticeList {
   id: number;

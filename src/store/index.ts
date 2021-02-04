@@ -1,13 +1,45 @@
-import { User } from "@/models/user";
-import { createStore } from "vuex";
+import {
+  CommitOptions,
+  createLogger,
+  createStore,
+  DispatchOptions,
+  Store as VuexStore,
+} from "vuex";
 
-export default createStore({
-  state: {
-    user: { role: 0, name: "", token: "" } as User,
-    entered: false,
-    verified: false,
-  },
-  mutations: {},
-  actions: {},
-  modules: {},
+import { Actions } from "./actions";
+import { Getters, getters } from "./getters";
+import { Mutations, mutations } from "./mutations";
+import { State, state } from "./state";
+
+// import { Actions, actions } from './actions';
+export const store = createStore<State>({
+  plugins: process.env.NODE_ENV === "development" ? [createLogger()] : [],
+  state,
+  mutations,
+  getters,
 });
+
+export function useStore() {
+  return store as Store;
+}
+
+export type Store = Omit<
+  VuexStore<State>,
+  "getters" | "commit" | "dispatch"
+> & {
+  commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
+    key: K,
+    payload: P,
+    options?: CommitOptions,
+  ): ReturnType<Mutations[K]>;
+} & {
+  dispatch<K extends keyof Actions>(
+    key: K,
+    payload?: Parameters<Actions[K]>[1],
+    options?: DispatchOptions,
+  ): ReturnType<Actions[K]>;
+} & {
+  getters: {
+    [K in keyof Getters]: ReturnType<Getters[K]>;
+  };
+};

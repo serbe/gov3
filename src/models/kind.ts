@@ -11,9 +11,9 @@ export interface Kind {
   note?: string;
 }
 
-// export const KindEmpty: Kind = {
-//   id: 0,
-// };
+export const KindEmpty: Kind = {
+  id: 0,
+};
 
 export interface KindList {
   id: number;

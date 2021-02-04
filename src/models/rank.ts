@@ -10,9 +10,9 @@ export interface Rank {
   note?: string;
 }
 
-// export const RankEmpty: Rank = {
-//   id: 0,
-// };
+export const RankEmpty: Rank = {
+  id: 0,
+};
 
 export interface RankList {
   id: number;

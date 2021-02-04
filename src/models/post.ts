@@ -11,9 +11,9 @@ export interface Post {
   note?: string;
 }
 
-// export const PostEmpty: Post = {
-//   id: 0,
-// };
+export const PostEmpty: Post = {
+  id: 0,
+};
 
 export interface PostList {
   id: number;
