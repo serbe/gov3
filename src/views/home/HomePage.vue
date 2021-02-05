@@ -1,73 +1,83 @@
 <template>
-  <div class="container">
-    <div class="content has-text-centered">
-      <div class="columns">
-        <div class="column is-one-third">
-          <table v-if="page.EducationShort" class="table" key="educations">
-            <tbody>
-              <tr
-                v-for="(item, index) in page.EducationShort"
-                :key="index"
-                :class="trClass(item.start_date)"
-              >
-                <td>
-                  <router-link :to="'/education/' + item.id">{{
-                    tinyDate(item.start_date)
-                  }}</router-link>
-                </td>
-                <td>
-                  <router-link :to="'/contact/' + item.contact_id">{{
-                    item.contact_name
-                  }}</router-link>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="column is-one-third is-offset-one-third">
-          <table v-if="page.PracticeShort" class="table" key="practices">
-            <tbody>
-              <tr
-                v-for="(item, index) in page.PracticeShort"
-                :key="index"
-                :class="trClass(item.date_of_practice)"
-              >
-                <td>
-                  <router-link :to="'/practice/' + item.id">{{
-                    tinyDate(item.date_of_practice)
-                  }}</router-link>
-                </td>
-                <td>
-                  <router-link :to="'/practice/' + item.id">{{
-                    item.kind_short_name
-                  }}</router-link>
-                </td>
-                <td>
-                  <router-link :to="'/company/' + item.company_id">{{
-                    item.company_name
-                  }}</router-link>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <div class="columns">
+    <div class="column is-4">
+      <table class="table is-narrow">
+        <tbody>
+          <tr
+            v-for="row in educations"
+            :key="row.id"
+            :class="trClass(row.start_date)"
+          >
+            <td
+              class="has-text-black"
+              @click="history.push(`/educations/${row.id}`)"
+              role="gridcell"
+            >
+              {{ tinyDate(row.start_date) }}
+            </td>
+            <td
+              class="has-text-black"
+              @click="history.push(`/contacts/${row.contact_id}`)"
+              role="gridcell"
+            >
+              {{ row.contact_name }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="column is-4 is-offset-4">
+      <table class="table is-narrow">
+        <tbody>
+          <tr
+            v-for="row in practices"
+            :key="row.id"
+            :class="trClass(row.date_of_practice)"
+          >
+            <td
+              class="has-text-black"
+              @click="history.push(`/practices/${row.id}`)"
+              role="gridcell"
+            >
+              {{ tinyDate(row.date_of_practice) }}
+            </td>
+            <td
+              class="has-text-black"
+              @click="history.push(`/kinds/${row.kind_id}`)"
+              role="gridcell"
+            >
+              {{ row.kind_short_name }}
+            </td>
+            <td
+              class="has-text-black"
+              @click="history.push(`/companies/${row.company_id}`)"
+              role="gridcell"
+            >
+              {row.company_name}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { GetList } from "@/services/fetcher";
+import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   name: "HomePage",
   setup() {
-    const page = reactive({
-      practicesFetched: false,
-      educationsFetched: false,
-      PracticeShort: [],
-      EducationShort: [],
-    });
+    const educations = ref([]);
+    const practices = ref([]);
+    // const educationList = GetList();
+    // const practiceList = GetList();
+
+    // onMounted(() => {
+    //   educationList.func("EducationNear");
+    //   practiceList.func("PracticeNear");
+    // });
 
     const trClass = (date: string) => {
       const m = new Date();
@@ -89,8 +99,12 @@ export default defineComponent({
       return date;
     };
 
+    // const educations = educationList.list.value ? educationList.list.value : [];
+    // const practices = practiceList.list.value ? practiceList.list.value : [];
+
     return {
-      page,
+      educations,
+      practices,
       trClass,
       tinyDate,
     };

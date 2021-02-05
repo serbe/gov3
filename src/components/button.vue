@@ -1,16 +1,16 @@
 <template>
   <a
     v-if="href"
-    href="{props.href}"
-    onClick="{props.onClick}"
-    className="{props.classes}"
+    :href="props.href"
+    @click="props.onClick"
+    :class="props.classes"
   ></a>
   <button
     v-else
     type="button"
-    disabled="{props.disabled}"
-    onClick="{props.onClick}"
-    className="{props.classes}"
+    :disabled="props.disabled"
+    @click="props.onClick"
+    :class="props.classes"
   ></button>
 </template>
 

@@ -1,10 +1,9 @@
 import { useStore } from "vuex";
-import { ref } from "vue";
 
 import { clearStorage, getStorage } from "@/services/storage";
 
-const loginURL = process.env.GOV3_LOGINURL || "/go/login";
-const checkURL = process.env.GOV3_CHECKURL || "/go/check";
+const loginURL = process.env.VUE_APP_LOGINURL || "/go/login";
+const checkURL = process.env.VUE_APP_CHECKURL || "/go/check";
 
 export interface CJson {
   r: boolean;
@@ -41,11 +40,10 @@ export const login = (name: string, pass: string): void => {
 };
 
 export const check = () => {
-  const checkResult = ref(false);
   const store = useStore();
-  const user = store.getters.getUser();
+  const user = store.getters.getUser;
 
-  fetch(checkURL, {
+  return fetch(checkURL, {
     method: "POST",
     mode: "cors",
     headers: {
@@ -56,9 +54,8 @@ export const check = () => {
     .then(response => response.json())
     .then(response => response as CJson)
     .then(jsonData => {
-      checkResult.value = jsonData.r;
+      return jsonData.r;
     });
-  return checkResult;
 };
 
 export const logout = (): void => {

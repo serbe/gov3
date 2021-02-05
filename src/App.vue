@@ -1,33 +1,84 @@
+<template>
+  <div class="container px-4 py-4">
+    <router-view></router-view>
+  </div>
+  <footer class="footer bot">
+    <div class="container">
+      <div class="content has-text-centered">© 2021 Сочи</div>
+    </div>
+  </footer>
+</template>
+
 <script lang="ts">
-import { defineComponent } from "vue";
-import TaskList from "./components/TaskList.vue";
+import { defineComponent, onMounted } from "vue";
+import router from "./router";
+import { check } from "./services/auth";
 
 export default defineComponent({
-  components: { TaskList },
   setup() {
+    onMounted(() => {
+      check()
+        .then(() => {
+          /* all good */
+        })
+        .catch(() => {
+          router.push("/login");
+        });
+    });
+
     return {};
   },
 });
 </script>
 
-<template>
-  <div class="container mx-auto mt-4">
-    <h1 class="is-size-3 has-text-centered p-2 has-text-weight-bold">
-      Vue 3 Task Management App with Typescript and Vuex 4
-    </h1>
+<style lang="scss">
+@charset "utf-8";
+@import "../node_modules/bulma/bulma.sass";
 
-    <div v-if="loading">
-      <h3 class="has-text-centered mt-4">Loading...</h3>
-    </div>
-    <div v-else>
-      <p class="has-text-centered mt-2">
-        {{ completedCount }} of {{ totalCount }} completed.
-      </p>
-      <TaskList />
-    </div>
-  </div>
-</template>
+// $size-1: 2.5rem;
+// $size-2: 2.08rem;
+// $size-3: 1.66rem;
+// $size-4: 1.25rem;
+// $size-5: 1.04rem;
+// $size-6: 0.83rem;
+// $size-7: 0.62rem;
 
-<style>
-@import "~bulma/css/bulma.css";
+.centered-content {
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.w250 {
+  min-width: 250px !important;
+  max-width: 80% !important;
+}
+
+.fixed {
+  table-layout: fixed;
+}
+
+.w95 {
+  width: 95px !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.w300 {
+  width: 300px;
+}
+
+.mla {
+  margin-left: auto;
+}
 </style>

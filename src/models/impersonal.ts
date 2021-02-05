@@ -22,8 +22,8 @@
 // };
 
 // export const EmailInputs = (properties: EmailValues): JSX.Element => (
-//   <div className="field">
-//     <label className="label" htmlFor="email-1-input">
+//   <div class="field">
+//     <label class="label" htmlFor="email-1-input">
 //       Электронный адрес
 //     </label>
 //     {properties.emails.map((email, index) => (
@@ -40,15 +40,15 @@
 //           values = addEmptyString(values);
 //           properties.setter(values);
 //         }}
-//         classNameDiv="pb-1"
+//         classDiv="pb-1"
 //       />
 //     ))}
 //   </div>
 // );
 
 // export const PhoneInputs = (properties: PhoneValues): JSX.Element => (
-//   <div className="field">
-//     <label className="label" htmlFor="phone-1-input">
+//   <div class="field">
+//     <label class="label" htmlFor="phone-1-input">
 //       Телефон
 //     </label>
 //     {properties.phones.map((phone, index) => (
@@ -65,15 +65,15 @@
 //           values = addEmptyString(values);
 //           properties.setter(values);
 //         }}
-//         classNameDiv="pb-1"
+//         classDiv="pb-1"
 //       />
 //     ))}
 //   </div>
 // );
 
 // export const FaxInputs = (properties: PhoneValues): JSX.Element => (
-//   <div className="field">
-//     <label className="label" htmlFor="fax-1-input">
+//   <div class="field">
+//     <label class="label" htmlFor="fax-1-input">
 //       Факс
 //     </label>
 //     {properties.phones.map((fax, index) => (
@@ -90,7 +90,7 @@
 //           values = addEmptyString(values);
 //           properties.setter(values);
 //         }}
-//         classNameDiv="pb-1"
+//         classDiv="pb-1"
 //       />
 //     ))}
 //   </div>
@@ -143,8 +143,8 @@
 
 //   const SaveButton = () =>
 //     auth.user.role > 4 ? (
-//       <div className="control">
-//         <button type="button" className="button is-info" onClick={() => send()}>
+//       <div class="control">
+//         <button type="button" class="button is-info" onClick={() => send()}>
 //           Сохранить
 //         </button>
 //       </div>
@@ -153,8 +153,8 @@
 //     );
 
 //   const BackButton = () => (
-//     <div className="control">
-//       <button type="button" className="button" onClick={() => history.go(-1)}>
+//     <div class="control">
+//       <button type="button" class="button" onClick={() => history.go(-1)}>
 //         Закрыть
 //       </button>
 //     </div>
@@ -162,10 +162,10 @@
 
 //   const DeleteButton = () =>
 //     auth.user.role > 8 ? (
-//       <div className="control mla">
+//       <div class="control mla">
 //         <button
 //           type="button"
-//           className="button is-danger"
+//           class="button is-danger"
 //           onClick={() => {
 //             if (window.confirm('Вы действительно хотите удалить запись?')) {
 //               del();
@@ -180,7 +180,7 @@
 //     );
 
 //   return (
-//     <div className="field is-grouped">
+//     <div class="field is-grouped">
 //       <SaveButton />
 //       <BackButton />
 //       <DeleteButton />

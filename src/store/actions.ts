@@ -1,11 +1,13 @@
-import { ActionContext } from "vuex";
+import { check } from "@/services/auth";
+import { ActionContext, ActionTree } from "vuex";
 
 import { Mutations } from "./mutations";
 import { State } from "./state";
 
 export enum ActionTypes {
-  GetUser = "GET_USER",
-  SetUser = "SET_USER",
+  // GetUser = "GET_USER",
+  // SetUser = "SET_USER",
+  Check = "CHECK",
 }
 
 type ActionAugments = Omit<ActionContext<State, State>, "commit"> & {
@@ -16,9 +18,37 @@ type ActionAugments = Omit<ActionContext<State, State>, "commit"> & {
 };
 
 export type Actions = {
-  [ActionTypes.GetUser](context: ActionAugments): void;
-  [ActionTypes.SetUser](context: ActionAugments): void;
+  // [ActionTypes.GetUser](context: ActionAugments): void;
+  // [ActionTypes.SetUser](context: ActionAugments): void;
+  [ActionTypes.Check](context: ActionAugments): void;
 };
+
+// export const actions: ActionTree<State, State> & Actions = {
+//   async [ActionTypes.Check]({commit}) {
+//     let checked_result = check();
+
+//     request
+//       .get("check")
+//       .then((resp) => {
+//         if (resp.user) {
+//           const user = resp.user;
+//           localStorage.setItem("user", user);
+//           commit("auth_success", user);
+//         } else {
+//           commit("logout");
+//           localStorage.removeItem("user");
+//           commit("auth_error");
+//         }
+//         resolve(resp);
+//       })
+//       .catch((err) => {
+//         commit("auth_error");
+//         localStorage.removeItem("user");
+//         commit("logout");
+//         reject(err);
+//       });
+//   });
+// }
 
 // const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 

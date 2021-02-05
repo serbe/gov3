@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 import { useStore } from "vuex";
 
 import {
@@ -32,7 +32,7 @@ import { Scope, ScopeEmpty, ScopeList } from "../models/scope";
 import { Siren, SirenEmpty, SirenList } from "../models/siren";
 import { SirenType, SirenTypeEmpty, SirenTypeList } from "../models/sirentype";
 
-const URL = process.env.GOV3_JSONURL || "/go/json";
+const URL = process.env.VUE_APP_JSONURL || "/go/json";
 
 export type SelectItem = {
   id: number;
@@ -290,6 +290,11 @@ type JsonGetItemScheme =
       error: string;
     };
 
+export type Fetcher = {
+  list: Ref<List[] | undefined>;
+  func: (name: string) => void;
+};
+
 export const getItem = (id: number, name: string) => {
   const item = ref<Item>();
   const store = useStore();
@@ -304,7 +309,7 @@ export const getItem = (id: number, name: string) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: `{"command":{"Get":{"Item":{"name":"${name}","id":${id}}}},"addon":"${store.getters.getToken()}"}`,
+      body: `{"command":{"Get":{"Item":{"name":"${name}","id":${id}}}},"addon":"${store.getters.getToken}"}`,
     })
       .then(response => response.json())
       .then(response => response as JsonGetItemScheme)
@@ -393,73 +398,81 @@ export const getItem = (id: number, name: string) => {
   return item;
 };
 
-export const GetList = (name: string) => {
+export const GetList = (): Fetcher => {
   const list = ref<List[]>();
   const store = useStore();
   const setList = (data: List[]) => {
     list.value = data;
   };
 
-  fetch(URL, {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: `{"command":{"Get":{"List":"${name}"}},"addon":"${store.getters.getToken()}"}`,
-  })
-    .then(response => response.json())
-    .then(response => response as JsonListScheme)
-    .then(jsonData => {
-      if (jsonData?.command === "Get") {
-        switch (jsonData?.name) {
-          case "CertificateList":
-            setList(jsonData.object.CertificateList);
-            break;
-          case "CompanyList":
-            setList(jsonData.object.CompanyList);
-            break;
-          case "ContactList":
-            setList(jsonData.object.ContactList);
-            break;
-          case "DepartmentList":
-            setList(jsonData.object.DepartmentList);
-            break;
-          case "EducationList":
-            setList(jsonData.object.EducationList);
-            break;
-          case "EducationNear":
-            setList(jsonData.object.EducationShort);
-            break;
-          case "KindList":
-            setList(jsonData.object.KindList);
-            break;
-          case "PostList":
-            setList(jsonData.object.PostList);
-            break;
-          case "PracticeList":
-            setList(jsonData.object.PracticeList);
-            break;
-          case "PracticeNear":
-            setList(jsonData.object.PracticeShort);
-            break;
-          case "RankList":
-            setList(jsonData.object.RankList);
-            break;
-          case "ScopeList":
-            setList(jsonData.object.ScopeList);
-            break;
-          case "SirenList":
-            setList(jsonData.object.SirenList);
-            break;
-          case "SirenTypeList":
-            setList(jsonData.object.SirenTypeList);
-            break;
+  const fetchList = (name: string) => {
+    fetch(URL, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "access-control-allow-origin": "*",
+      },
+      body: `{"command":{"Get":{"List":"${name}"}},"addon":"${store.getters.getToken}"}`,
+    })
+      .then(response => response.json())
+      .then(response => response as JsonListScheme)
+      .then(jsonData => {
+        if (jsonData?.command === "Get") {
+          switch (jsonData?.name) {
+            case "CertificateList":
+              setList(jsonData.object.CertificateList);
+              break;
+            case "CompanyList":
+              setList(jsonData.object.CompanyList);
+              break;
+            case "ContactList":
+              setList(jsonData.object.ContactList);
+              break;
+            case "DepartmentList":
+              setList(jsonData.object.DepartmentList);
+              break;
+            case "EducationList":
+              setList(jsonData.object.EducationList);
+              break;
+            case "EducationNear":
+              setList(jsonData.object.EducationShort);
+              break;
+            case "KindList":
+              setList(jsonData.object.KindList);
+              break;
+            case "PostList":
+              setList(jsonData.object.PostList);
+              break;
+            case "PracticeList":
+              setList(jsonData.object.PracticeList);
+              break;
+            case "PracticeNear":
+              setList(jsonData.object.PracticeShort);
+              break;
+            case "RankList":
+              setList(jsonData.object.RankList);
+              break;
+            case "ScopeList":
+              setList(jsonData.object.ScopeList);
+              break;
+            case "SirenList":
+              setList(jsonData.object.SirenList);
+              break;
+            case "SirenTypeList":
+              setList(jsonData.object.SirenTypeList);
+              break;
+          }
         }
-      }
-    });
+      });
+  };
 
-  return list;
+  const fetcher: Fetcher = {
+    list: list,
+    func: fetchList,
+  };
+
+  return fetcher;
 };
 
 export const GetSelect = (name: string) => {
@@ -475,7 +488,7 @@ export const GetSelect = (name: string) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: `{"command":{"Get":{"List":"${name}"}},"addon":"${store.getters.getToken()}"}`,
+    body: `{"command":{"Get":{"List":"${name}"}},"addon":"${store.getters.getToken}"}`,
   })
     .then(response => response.json())
     .then(response => response as JsonListScheme)
@@ -546,9 +559,9 @@ export const SetItem = (id: number, name: string, item: Item) => {
     },
     body: `{ "command": { "${
       id === 0 ? "Insert" : "Update"
-    }": { "${name}": ${JSON.stringify(
-      item,
-    )} } }, "addon": "${store.getters.getToken()}" }`,
+    }": { "${name}": ${JSON.stringify(item)} } }, "addon": "${
+      store.getters.getToken
+    }" }`,
   })
     .then(response => response.json())
     .then(response => response as JsonItemScheme)
@@ -572,7 +585,7 @@ export const DelItem = (id: number, name: string) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: `{"command":{"Delete":{"name":"${name}","id":${id}}},"addon":"${store.getters.getToken()}"}`,
+    body: `{"command":{"Delete":{"name":"${name}","id":${id}}},"addon":"${store.getters.getToken}"}`,
   })
     .then(response => response.json())
     .then(response => response as JsonItemScheme)

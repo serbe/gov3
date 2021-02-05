@@ -57,11 +57,11 @@ export interface PostList {
 // );
 
 // export const PostGOSwitch = (properties: BooleanInputProperties): JSX.Element => (
-//   <div className="field">
-//     <div className="control">
-//       <label className="checkbox" htmlFor="post-go">
+//   <div class="field">
+//     <div class="control">
+//       <label class="checkbox" htmlFor="post-go">
 //         <input
-//           className="checkbox"
+//           class="checkbox"
 //           interface="checkbox"
 //           name="post-go"
 //           id="post-go"

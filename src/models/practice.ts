@@ -46,8 +46,8 @@ export interface PracticeShort {
 // export const PracticeListForm = (properties: PracticeValues): JSX.Element => {
 //   const history = useHistory();
 //   return properties.practices.length > 0 ? (
-//     <div className="field" key="practices">
-//       <label className="label" htmlFor="practice-1">
+//     <div class="field" key="practices">
+//       <label class="label" htmlFor="practice-1">
 //         Тренировки
 //       </label>
 //       {properties.practices.map((practice, index) => (
@@ -59,8 +59,8 @@ export interface PracticeShort {
 //             practice.topic || ''
 //           }`}
 //           readonly
-//           classNameDiv="pb-1"
-//           className="link"
+//           classDiv="pb-1"
+//           class="link"
 //         />
 //       ))}
 //     </div>

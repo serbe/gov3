@@ -76,14 +76,14 @@ export interface ContactShort {
 // export const ContactShortForm = (properties: ContactShortValues): JSX.Element => {
 //   const history = useHistory();
 //   return (
-//     <div className="field" key="contacts">
-//       <label className="label" htmlFor="contact-1">
+//     <div class="field" key="contacts">
+//       <label class="label" htmlFor="contact-1">
 //         Сотрудники
 //       </label>
 //       {properties.contacts.map((contact, index) => (
 //         <Input
-//           className="link"
-//           classNameDiv="pb-1"
+//           class="link"
+//           classDiv="pb-1"
 //           icon="user"
 //           key={`contact-${index}`}
 //           name={`contact-${index}`}
@@ -109,8 +109,8 @@ export interface ContactShort {
 
 // export const ContactEducations = (properties: ContactEducationsValues): JSX.Element =>
 //   properties.educations.length > 0 ? (
-//     <div className="field">
-//       <label className="label" htmlFor="education-1-input">
+//     <div class="field">
+//       <label class="label" htmlFor="education-1-input">
 //         Даты обучения в УМЦ
 //       </label>
 //       {properties.educations.map((education, index) => (
@@ -118,7 +118,7 @@ export interface ContactShort {
 //           name={`education-${index}-input`}
 //           key={`education-${index}`}
 //           value={education}
-//           classNameDiv="pb-1"
+//           classDiv="pb-1"
 //         />
 //       ))}
 //     </div>
