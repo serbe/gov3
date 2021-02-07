@@ -1,58 +1,43 @@
-import React, { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+<template>
+  
+</template>
 
-import { Icon } from './icon';
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export interface StringInputProperties {
-  value?: string;
-  setter: (value?: string) => void;
-}
+import BulmaIcon from './icon.vue';
 
-export interface NumberInputProperties {
-  value?: number;
-  setter: (value?: number) => void;
-}
+type inputType = 'text' | 'password' | 'email' | 'tel';
 
-export interface BooleanInputProperties {
-  value: boolean;
-  setter: (value: boolean) => void;
-}
+export default defineComponent({
+  name: "BulmaInput",
+  components: {BulmaIcon},
+  props: {
+    autocomplete: String,
+    className: String,
+    classNameDiv: String,
+    disabled: Boolean,
+    icon: String,
+    iconRight: String,
+    name: {
+      type: String,
+      required: true,
+    },
+    onBlur: Function,
+  onChange: Function,
+  onClick: Function,
+  onKeyPress: Function,
+  placeholder: String,
+  readonly: Boolean,
+  type: Object as () => inputType,
+  // inputValue: {type: Number | String, },
+  },
+  setup (props) {
 
-interface InputProperties {
-  autocomplete?: string;
-  className?: string;
-  classNameDiv?: string;
-  disabled?: boolean;
-  icon?: string;
-  iconRight?: string;
-  name: string;
-  onBlur?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClick?: (event: MouseEvent<HTMLInputElement, globalThis.MouseEvent>) => void;
-  onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  readonly?: boolean;
-  type?: 'text' | 'password' | 'email' | 'tel';
-  value?: number | string;
-}
+    }
+});
+</script>
 
-export const Input = (properties: InputProperties): JSX.Element => {
-  const {
-    autocomplete,
-    className,
-    classNameDiv,
-    disabled,
-    icon,
-    iconRight,
-    name,
-    onBlur,
-    onChange,
-    onClick,
-    onKeyPress,
-    placeholder,
-    readonly,
-    type,
-    value,
-  } = properties;
 
   const divClasses = `control ${classNameDiv || ''} ${icon ? 'has-icons-left' : ''} ${
     iconRight ? 'has-icons-right' : ''
@@ -80,8 +65,4 @@ export const Input = (properties: InputProperties): JSX.Element => {
       {iconRight && <Icon position="right" icon={iconRight} />}
     </div>
   );
-};
-
-Input.defaultProps = {
-  type: 'text',
 };
