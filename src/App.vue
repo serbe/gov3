@@ -11,11 +11,15 @@
 
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
-import router from "./router";
+import { onBeforeRouteLeave, useRouter } from "vue-router";
+import { useStore } from "vuex";
 import { check } from "./services/auth";
 
 export default defineComponent({
   setup() {
+    const store = useStore();
+    const router = useRouter();
+
     onMounted(() => {
       check()
         .then(() => {
@@ -24,6 +28,14 @@ export default defineComponent({
         .catch(() => {
           router.push("/login");
         });
+    });
+
+    onBeforeRouteLeave((to, _, next) => {
+      if (to.name !== "Login" && !store.getters.isAuth) {
+        next({ name: "Login" });
+      } else {
+        next();
+      }
     });
 
     return {};
