@@ -14,8 +14,8 @@ interface TJson {
   r: number;
 }
 
-export const login = (name: string, pass: string): void => {
-  fetch(loginURL, {
+export const login = (name: string, pass: string) => {
+  return fetch(loginURL, {
     method: "POST",
     mode: "cors",
     headers: {
@@ -36,7 +36,9 @@ export const login = (name: string, pass: string): void => {
         check: true,
         login: true,
       });
-    });
+    })
+    .then(() => true)
+    .catch(() => false);
 };
 
 export const check = () => {

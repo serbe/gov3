@@ -1,50 +1,58 @@
 <template>
   <div class="container w300">
-    <!-- <form onSubmit={submitHandler}> -->
-    <div class="box mt-4">
-      <h3 class="title is-3">Авторизация</h3>
-      <FormField
-        name="name"
-        type="text"
-        icon="user"
-        label="Имя пользователя"
-        autocomplete="udds-password"
-        v-model="name"
-      />
-      <FormField
-        name="password"
-        type="password"
-        icon="key"
-        label="Пароль"
-        v-model="pass"
-      />
-      <div class="field">
-        <div class="control">
-          <button type="button" class="button">Отправить</button>
+    <form @submit.prevent="">
+      <div class="box mt-4">
+        <h3 class="title is-3">Авторизация</h3>
+        <BFormField
+          name="name"
+          type="text"
+          icon="user"
+          label="Имя пользователя"
+          autocomplete="udds-password"
+          v-model="name"
+        />
+        <BFormField
+          name="password"
+          type="password"
+          icon="key"
+          label="Пароль"
+          v-model="pass"
+        />
+        <div class="field">
+          <div class="control">
+            <button type="button" class="button" :onClick="submit">
+              Отправить
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- </form> -->
+    </form>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { login } from "@/services/auth";
+import BFormField from "@/components/formfield.vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "LoginPage",
+  components: { BFormField },
   setup() {
     const name = ref("");
     const pass = ref("");
+    const router = useRouter();
 
-    //   const submit = (): void => login(name, pass, setAuth);
+    const submit = () =>
+      login(name.value, pass.value).then(() => {
+        router.back();
+      });
 
-    //   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
-    //     event.preventDefault();
-    //   };
     return {
       name,
       pass,
+      submit,
     };
   },
 });

@@ -6,6 +6,7 @@ export type Getters = {
   getUser(state: State): User;
   getToken(state: State): string;
   getRole(state: State): number;
+  isAuth(state: State): boolean;
 };
 
 export const getters: GetterTree<State, State> & Getters = {
@@ -17,6 +18,9 @@ export const getters: GetterTree<State, State> & Getters = {
   },
   getRole(state) {
     return state.user.role;
+  },
+  isAuth(state) {
+    return state.login;
   },
   //   totalTaskCount(state) {
   //     return state.tasks.length;

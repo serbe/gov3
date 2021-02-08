@@ -1,69 +1,95 @@
-import React, { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+<template>
+  <div className="field">
+    <label v-if="props.label" class="label">{{ props.label }} </label>
+    <BInput
+      v-model="message"
+      :autocomplete="props.autocomplete"
+      :color="props.color"
+      :size="props.size"
+      :rounded="props.rounded"
+      :hovered="props.hovered"
+      :focused="props.focused"
+      :loading="props.loading"
+      :disabled="props.disabled"
+      :readonly="props.readonly"
+      :icon="props.icon"
+      :iconRight="props.iconRight"
+      :className="props.className"
+      :classNameDiv="props.classNameDiv"
+      :name="props.name"
+      :onBlur="props.onBlur"
+      :onChange="props.onChange"
+      :onClick="props.onClick"
+      :onKeyPress="props.onKeyPress"
+      :placeholder="props.placeholder"
+      :type="props.type"
+    />
+  </div>
+</template>
 
-import { Input } from './input';
+<script lang="ts">
+import { defineComponent, computed } from "vue";
+import { Colors, Types, Sizes } from "@/models/enums";
+import BInput from "./input.vue";
 
-export interface FormFieldProperties {
-  autocomplete?: string;
-  className?: string;
-  disabled?: boolean;
-  icon?: string;
-  iconRight?: string;
-  label?: string;
-  name: string;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClick?: (event: MouseEvent<HTMLInputElement, globalThis.MouseEvent>) => void;
-  onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  readonly?: boolean;
-  rounded?: boolean;
-  type?: 'text' | 'password' | 'email' | 'tel';
-  value?: number | string;
-}
+export default defineComponent({
+  name: "BFormField",
+  components: { BInput },
+  props: {
+    label: String,
+    autocomplete: String,
+    color: {
+      type: String,
+      validator: (value: Colors) =>
+        [
+          Colors.PRIMARY,
+          Colors.LIGHT,
+          Colors.INFO,
+          Colors.SUCCESS,
+          Colors.WARNING,
+          Colors.DANGER,
+        ].includes(value),
+    },
+    size: {
+      type: String,
+      validator: (value: Sizes) =>
+        [Sizes.SMALL, Sizes.NORMAL, Sizes.MEDIUM, Sizes.LARGE].includes(value),
+    },
+    rounded: Boolean,
+    hovered: Boolean,
+    focused: Boolean,
+    loading: Boolean,
+    disabled: Boolean,
+    readonly: Boolean,
+    icon: String,
+    iconRight: String,
+    className: String,
+    classNameDiv: String,
+    name: {
+      type: String,
+      required: true,
+    },
+    onBlur: Function,
+    onChange: Function,
+    onClick: Function,
+    onKeyPress: Function,
+    placeholder: String,
+    type: {
+      type: String,
+      validator: (value: Types) =>
+        [Types.TEXT, Types.PASSWORD, Types.EMAIL, Types.TEL].includes(value),
+    },
+    modelValue: {
+      type: [Number, String],
+    },
+  },
+  setup(props, { emit }) {
+    const message = computed({
+      get: () => props.modelValue,
+      set: value => emit("update:modelValue", value),
+    });
 
-export const FormField = (properties: FormFieldProperties): JSX.Element => {
-  const {
-    autocomplete,
-    className,
-    disabled,
-    icon,
-    iconRight,
-    label,
-    name,
-    onChange,
-    onClick,
-    onKeyPress,
-    placeholder,
-    readonly,
-    type,
-    value,
-  } = properties;
-
-  return (
-    <div className="field">
-      {label && (
-        <label className="label" htmlFor={name}>
-          {label}
-        </label>
-      )}
-      <Input
-        autocomplete={autocomplete}
-        className={className}
-        disabled={disabled}
-        icon={icon}
-        iconRight={iconRight}
-        name={name}
-        onChange={onChange}
-        onClick={onClick}
-        onKeyPress={onKeyPress}
-        placeholder={placeholder}
-        readonly={readonly}
-        type={type}
-        value={value}
-      />
-    </div>
-  );
-};
-
-FormField.defaultProps = {
-  type: 'text',
-};
+    return { message, props };
+  },
+});
+</script>
