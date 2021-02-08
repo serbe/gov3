@@ -16,8 +16,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
-import { Sizes } from "@/models/sizes";
-import { Colors } from "@/models/colors";
+import { Colors, Sizes } from "@/models/enums";
 
 export default defineComponent({
   name: "BButton",
