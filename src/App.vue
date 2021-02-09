@@ -10,34 +10,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
-import { onBeforeRouteLeave, useRouter } from "vue-router";
-import { useStore } from "vuex";
-import { check } from "./services/auth";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   setup() {
-    const store = useStore();
-    const router = useRouter();
-
-    onMounted(() => {
-      check()
-        .then(() => {
-          /* all good */
-        })
-        .catch(() => {
-          router.push("/login");
-        });
-    });
-
-    onBeforeRouteLeave((to, _, next) => {
-      if (to.name !== "Login" && !store.getters.isAuth) {
-        next({ name: "Login" });
-      } else {
-        next();
-      }
-    });
-
     return {};
   },
 });

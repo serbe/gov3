@@ -1,3 +1,4 @@
+import { User } from "@/store/state";
 import { Ref, ref } from "vue";
 import { useStore } from "vuex";
 
@@ -33,6 +34,8 @@ import { Siren, SirenEmpty, SirenList } from "../models/siren";
 import { SirenType, SirenTypeEmpty, SirenTypeList } from "../models/sirentype";
 
 const URL = process.env.VUE_APP_JSONURL || "/go/json";
+const checkURL = process.env.VUE_APP_CHECKURL || "/go/check";
+const loginURL = process.env.VUE_APP_LOGINURL || "/go/login";
 
 export type SelectItem = {
   id: number;
@@ -293,6 +296,43 @@ type JsonGetItemScheme =
 export type Fetcher = {
   list: Ref<List[] | undefined>;
   func: (name: string) => void;
+};
+
+export interface CJson {
+  r: boolean;
+}
+
+interface TJson {
+  t: string;
+  r: number;
+}
+
+export const postLogin = (name: string, pass: string) => {
+  return fetch(loginURL, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify({ u: name, p: btoa(pass) }),
+  })
+    .then(response => response.json())
+    .then(response => response as TJson);
+};
+
+export const postCheck = (user: User) => {
+  return fetch(checkURL, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ t: user.token, r: user.role }),
+  })
+    .then(response => response.json())
+    .then(response => response as CJson);
 };
 
 export const getItem = (id: number, name: string) => {

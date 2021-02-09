@@ -1,14 +1,15 @@
-import { check } from "@/services/auth";
 import { ActionContext, ActionTree } from "vuex";
+// import { clearStorage, getStorage, setStorage } from "@/services/storage";
 
 import { Mutations } from "./mutations";
 import { State } from "./state";
+// import { postCheck } from "@/services/fetcher";
 
-export enum ActionTypes {
-  // GetUser = "GET_USER",
-  // SetUser = "SET_USER",
-  Check = "CHECK",
-}
+export enum ActionTypes {}
+// GetUser = "GET_USER",
+// SetUser = "SET_USER",
+// Check = "CHECK",
+// GetPath = "GET_PATH",
 
 type ActionAugments = Omit<ActionContext<State, State>, "commit"> & {
   commit<K extends keyof Mutations>(
@@ -20,35 +21,34 @@ type ActionAugments = Omit<ActionContext<State, State>, "commit"> & {
 export type Actions = {
   // [ActionTypes.GetUser](context: ActionAugments): void;
   // [ActionTypes.SetUser](context: ActionAugments): void;
-  [ActionTypes.Check](context: ActionAugments): void;
+  // [ActionTypes.Check](context: ActionAugments): void;
+  // [ActionTypes.GetPath](context: ActionAugments): void;
 };
 
-// export const actions: ActionTree<State, State> & Actions = {
-//   async [ActionTypes.Check]({commit}) {
-//     let checked_result = check();
-
-//     request
-//       .get("check")
-//       .then((resp) => {
-//         if (resp.user) {
-//           const user = resp.user;
-//           localStorage.setItem("user", user);
-//           commit("auth_success", user);
-//         } else {
-//           commit("logout");
-//           localStorage.removeItem("user");
-//           commit("auth_error");
-//         }
-//         resolve(resp);
-//       })
-//       .catch((err) => {
-//         commit("auth_error");
-//         localStorage.removeItem("user");
-//         commit("logout");
-//         reject(err);
-//       });
-//   });
-// }
+export const actions: ActionTree<State, State> & Actions = {
+  // async [ActionTypes.Check]({ commit }) {
+  //   const user = getStorage();
+  //   return postCheck(user)
+  //     .then(jsonData => {
+  //       if (jsonData.r) {
+  //         commit(MutationType.SetChecked, true);
+  //         commit(MutationType.SetLogin, true);
+  //         commit(MutationType.SetUser, user);
+  //         setStorage(user);
+  //       } else {
+  //         commit(MutationType.SetChecked, true);
+  //         commit(MutationType.SetLogin, false);
+  //         commit(MutationType.ClearUser, undefined);
+  //         clearStorage();
+  //       }
+  //     })
+  //     .catch(() => {
+  //       commit(MutationType.SetChecked, true);
+  //       commit(MutationType.SetLogin, false);
+  //       clearStorage();
+  //     });
+  // },
+};
 
 // const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 

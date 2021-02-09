@@ -45,8 +45,8 @@ export default defineComponent({
     const router = useRouter();
 
     const submit = () =>
-      login(name.value, pass.value).then(() => {
-        router.back();
+      login(name.value, pass.value).then(result => {
+        if (result) router.back();
       });
 
     return {

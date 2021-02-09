@@ -1,62 +1,39 @@
-import { useStore } from "vuex";
+import { store } from "@/store";
 
-import { clearStorage, getStorage } from "@/services/storage";
-
-const loginURL = process.env.VUE_APP_LOGINURL || "/go/login";
-const checkURL = process.env.VUE_APP_CHECKURL || "/go/check";
-
-export interface CJson {
-  r: boolean;
-}
-
-interface TJson {
-  t: string;
-  r: number;
-}
+import { clearStorage, getStorage, setStorage } from "@/services/storage";
+import { postCheck, postLogin } from "./fetcher";
 
 export const login = (name: string, pass: string) => {
-  return fetch(loginURL, {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ u: name, p: btoa(pass) }),
-  })
-    .then(response => response.json())
-    .then(response => response as TJson)
+  return postLogin(name, pass)
     .then(jsonData => {
-      const store = useStore();
-      store.commit("SetAuth", {
-        user: {
-          role: jsonData.r,
-          name,
-          token: jsonData.t,
-        },
-        check: true,
-        login: true,
+      store.commit("SET_USER", {
+        role: jsonData.r,
+        name,
+        token: jsonData.t,
+      });
+      store.commit("SET_LOGIN", true);
+      store.commit("SET_CHECKED", true);
+      setStorage({
+        role: jsonData.r,
+        name,
+        token: jsonData.t,
       });
     })
     .then(() => true)
-    .catch(() => false);
+    .catch(() => {
+      return false;
+    });
 };
 
 export const check = () => {
-  const store = useStore();
   const user = store.getters.getUser;
 
-  return fetch(checkURL, {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ t: user.token, r: user.role }),
-  })
-    .then(response => response.json())
-    .then(response => response as CJson)
+  return postCheck(user)
     .then(jsonData => {
       return jsonData.r;
+    })
+    .catch(() => {
+      return false;
     });
 };
 
@@ -64,27 +41,29 @@ export const logout = (): void => {
   clearStorage();
 };
 
-export const checkStorage = (): void => {
+export const checkStorage = () => {
   const user = getStorage();
 
-  fetch(checkURL, {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: `{ "t": "${user.token}", "r": ${user.role} }`,
-  })
-    .then(response => response.json())
-    .then(response => response as CJson)
+  return postCheck(user)
     .then(jsonData => {
-      const store = useStore();
       if (jsonData.r) {
-        store.commit("SetLogin", true);
-        store.commit("SetChecked", true);
+        store.commit("SET_CHECKED", true);
+        store.commit("SET_LOGIN", true);
+        store.commit("SET_USER", user);
+        setStorage(user);
       } else {
-        store.commit("SetLogin", false);
-        store.commit("SetChecked", true);
+        store.commit("SET_LOGIN", false);
+        store.commit("SET_CHECKED", true);
+        store.commit("CLEAR_USER");
+        clearStorage();
       }
+      return jsonData.r;
+    })
+    .catch(() => {
+      store.commit("SET_LOGIN", false);
+      store.commit("SET_CHECKED", true);
+      store.commit("CLEAR_USER");
+      clearStorage();
+      return false;
     });
 };

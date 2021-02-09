@@ -65,19 +65,25 @@
 <script lang="ts">
 import { GetList } from "@/services/fetcher";
 import { defineComponent, onMounted, ref } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "HomePage",
   setup() {
     const educations = ref([]);
     const practices = ref([]);
-    // const educationList = GetList();
-    // const practiceList = GetList();
 
-    // onMounted(() => {
-    //   educationList.func("EducationNear");
-    //   practiceList.func("PracticeNear");
-    // });
+    const store = useStore();
+    const educationList = GetList();
+    const practiceList = GetList();
+
+    onMounted(() => {
+      educationList.func("EducationNear");
+      practiceList.func("PracticeNear");
+    });
+
+    const token = ref(store.getters.getToken);
+    const auth = ref(store.getters.isAuth);
 
     const trClass = (date: string) => {
       const m = new Date();
@@ -107,6 +113,8 @@ export default defineComponent({
       practices,
       trClass,
       tinyDate,
+      token,
+      auth,
     };
   },
 });

@@ -8,6 +8,7 @@ export type State = {
   user: User;
   login: boolean;
   checked: boolean;
+  history: string[];
 };
 
 export const state: State = {
@@ -18,4 +19,5 @@ export const state: State = {
   },
   login: false,
   checked: false,
+  history: [],
 };

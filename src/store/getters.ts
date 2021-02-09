@@ -7,6 +7,7 @@ export type Getters = {
   getToken(state: State): string;
   getRole(state: State): number;
   isAuth(state: State): boolean;
+  getLastPath(state: State): string;
 };
 
 export const getters: GetterTree<State, State> & Getters = {
@@ -22,10 +23,8 @@ export const getters: GetterTree<State, State> & Getters = {
   isAuth(state) {
     return state.login;
   },
-  //   totalTaskCount(state) {
-  //     return state.tasks.length;
-  //   },
-  //   getTaskById: state => (id: number) => {
-  //     return state.tasks.find(task => task.id === id);
-  //   },
+  getLastPath(state) {
+    const value = state.history.pop();
+    return value ? value : "/";
+  },
 };
