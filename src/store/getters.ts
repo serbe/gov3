@@ -25,6 +25,6 @@ export const getters: GetterTree<State, State> & Getters = {
   },
   getLastPath(state) {
     const value = state.history.pop();
-    return value ? value : "/";
+    return value ? value : "HomePage";
   },
 };
