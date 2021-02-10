@@ -10,14 +10,14 @@
           >
             <td
               class="has-text-black"
-              @click="history.push(`/educations/${row.id}`)"
+              @click="router.push(`/educations/${row.id}`)"
               role="gridcell"
             >
               {{ tinyDate(row.start_date) }}
             </td>
             <td
               class="has-text-black"
-              @click="history.push(`/contacts/${row.contact_id}`)"
+              @click="router.push(`/contacts/${row.contact_id}`)"
               role="gridcell"
             >
               {{ row.contact_name }}
@@ -36,24 +36,24 @@
           >
             <td
               class="has-text-black"
-              @click="history.push(`/practices/${row.id}`)"
+              @click="router.push(`/practices/${row.id}`)"
               role="gridcell"
             >
               {{ tinyDate(row.date_of_practice) }}
             </td>
             <td
               class="has-text-black"
-              @click="history.push(`/kinds/${row.kind_id}`)"
+              @click="router.push(`/kinds/${row.kind_id}`)"
               role="gridcell"
             >
               {{ row.kind_short_name }}
             </td>
             <td
               class="has-text-black"
-              @click="history.push(`/companies/${row.company_id}`)"
+              @click="router.push(`/companies/${row.company_id}`)"
               role="gridcell"
             >
-              {row.company_name}
+              {{ row.company_name }}
             </td>
           </tr>
         </tbody>
@@ -64,16 +64,13 @@
 
 <script lang="ts">
 import { GetList } from "@/services/fetcher";
-import { defineComponent, onMounted, ref } from "vue";
-import { useStore } from "vuex";
+import { defineComponent, onMounted, computed } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "HomePage",
   setup() {
-    const educations = ref([]);
-    const practices = ref([]);
-
-    const store = useStore();
+    const router = useRouter();
     const educationList = GetList();
     const practiceList = GetList();
 
@@ -81,9 +78,6 @@ export default defineComponent({
       educationList.func("EducationNear");
       practiceList.func("PracticeNear");
     });
-
-    const token = ref(store.getters.getToken);
-    const auth = ref(store.getters.isAuth);
 
     const trClass = (date: string) => {
       const m = new Date();
@@ -105,16 +99,19 @@ export default defineComponent({
       return date;
     };
 
-    // const educations = educationList.list.value ? educationList.list.value : [];
-    // const practices = practiceList.list.value ? practiceList.list.value : [];
+    const educations = computed(() =>
+      educationList.list.value ? educationList.list.value : [],
+    );
+    const practices = computed(() =>
+      practiceList.list.value ? practiceList.list.value : [],
+    );
 
     return {
       educations,
       practices,
       trClass,
       tinyDate,
-      token,
-      auth,
+      router,
     };
   },
 });
